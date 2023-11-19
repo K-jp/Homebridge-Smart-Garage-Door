@@ -1,0 +1,175 @@
+{
+  "pluginAlias": "smartgaragedoor",
+  "pluginType": "accessory",
+  "singular": true,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "sensors":{
+        "title": "sensors",
+        "description": "Number of door accuator sensor(s) installed [Default: 0]",
+        "type": "integer",
+        "required": true,
+        "placeholder": 0,
+        "oneOf": [
+          { "title":"No sensor installed",
+            "enum":[0] },
+
+          { "title":"(1) sensor installed",
+            "enum":[1] },
+
+          { "title":"(2) sensors installed",
+            "enum":[2] }
+          ]
+      },
+      "name": {
+        "title": "Garage Door Name",
+        "description": "Garage door name [Default: Garage Door]",
+        "type": "string",
+        "required": true,
+        "default": "Garage Door"
+      },
+      "doorSwitch":{
+        "title": "doorSwitch",
+        "description":"Garage door relay switch",
+        "type": "object",
+        "required": true,
+        "properties": {
+          "GPIO":{
+            "title":"GPIO",
+            "description": "GPIO Pin Number",
+            "type": "integer",
+            "enum":[4,5,6,12,13,16,17,18,19,20,21,22,23,24,25,26,27],
+            "required": true
+          },
+          "pressTimeInMs":{
+            "title":"pressTimeInMs",
+            "description": "The number of milliseconds to wait before releasing the relay switch. [Default: 1500]",
+            "type": "integer",
+            "required": false,
+            "placeholder": 1500,
+            "minumum": 1000,
+            "maximum": 2000
+          },
+          "moveTimeInSec":{
+            "title":"moveTimeInSec",
+            "description": "The number of seconds to wait before garage door to open or close is expected to be completed. [Default: 12]",
+            "type": "integer",
+            "required": false,
+            "placeholder": 12,
+            "minumum": 10,
+            "maximum": 15
+          },
+          "relaySwitch":{
+            "title":"Relay Switch Connection",
+            "description": "Door relay switch connection type. [Default: NO]",
+            "type": "string",
+            "required": false,
+            "placeholder": "NO",
+            "oneOf": [
+              { "title":"Normally Open",
+                "enum":["NO"] },
+
+              { "title":"Normally Closed",
+                "enum":["NC"] }
+              ]
+          },
+          "interruptActiveRequest":{
+            "title":"Interrupt Active Request",
+            "description": "Allow current open or close door operation to be stopped, reversed or do nothing when a new request is received.  [Default: stop]",
+            "type": "string",
+            "required": false,
+            "placeholder": "stop",
+            "oneOf": [
+              { "title":"Do nothing",
+                "enum":["no"] },
+
+              { "title":"Reverse current operation",
+                "enum":["yes"] },
+
+              { "title":"Stop current operation",
+                "enum":["stop"]}
+              ]
+          },
+          "doorSensor":{
+            "condition": {
+              "functionBody": "return model.sensors !== 0;"},    
+            "title": "Garage Door Primary Door Sensor",
+            "description":"Primary Sensor",
+            "type": "object",
+            "properties": {
+              "GPIO":{
+                "title":"GPIO",
+                "description": "GPIO Pin Number",
+                "type": "integer",
+                "enum":[4,5,6,12,13,16,17,18,19,20,21,22,23,24,25,26,27],
+                "required": true
+              },
+              "position":{
+                "condition": {
+                  "functionBody": "return model.sensors === 1;"},
+                "title":"position",
+                "description": "Primary sensor will detect when is fully open or fully closed . [Default: closed]",
+                "type": "string",
+                "required": false,
+                "placeholder": "closed",
+                "oneOf": [
+                  { "title":"fully open",
+                    "enum":["open"] },
+
+                  { "title":"fully closed",
+                    "enum":["closed"] }
+                ]
+              },         
+              "actuator":{
+                "title":"primary sensor connection",
+                "description": "Primary accuator sensor connection type. [Default: NO]",
+                "type": "string",
+                "required": false,
+                "placeholder": "NO",
+                "oneOf": [
+                  { "title":"Normally Open",
+                    "enum":["NO"] },
+  
+                  { "title":"Normally Closed",
+                    "enum":["NC"] }
+                ]
+              },
+              "doorSensor2":{
+                "condition": {
+                  "functionBody": "return model.sensors === 2;"},         
+                "title": "Garage Door Secondary Door Sensor",
+                "description":"Secondary Sensor",
+                "type": "object",
+                "properties": {
+                  "GPIO":{
+                    "title":"GPIO",
+                    "description": "GPIO Pin Number",
+                    "type": "integer",
+                    "enum":[4,5,6,12,13,16,17,18,19,20,21,22,23,24,25,26,27],
+                    "required": true
+                  },
+                  "actuator":{
+                    "title":"Secondary sensor connection",
+                    "description": "Secondary accuator sensor  connection type. [Default: NO]",
+                    "type": "string",
+                    "required": false,
+                    "placeholder": "NO",
+                    "oneOf": [
+                      { "title":"Normally Open",
+                        "enum":["NO"] },
+      
+                      { "title":"Normally Closed",
+                        "enum":["NC"] }
+                    ]
+                   } 
+                }
+              }
+            }       
+          }
+        }
+      } 
+    }
+  }
+}
+
