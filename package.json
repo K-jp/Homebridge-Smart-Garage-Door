@@ -1,0 +1,32 @@
+{
+  "name": "homebridge-smart-garage-door",
+  "version": "1.0.0",
+  "description": "Homebridge garage door accessory (only tested on Raspberry Pi)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/K-jp/Homebridge-Smart-Garage-Door.git"
+  },
+  "keywords": [
+    "Raspberry",
+    "Pi",
+    "Homebridge",
+    "Garagedoor",
+    "Rpi",
+    "Pi"
+  ],
+  "author": "Ken Piro",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/K-jp/Homebridge-Smart-Garage-Door/issues"
+  },
+  "homepage": "https://github.com/K-jp/Homebridge-Smart-Garage-Door#readme",
+  "dependencies": {
+    "debug": "^4.3.4",
+    "lodash": "^4.17.21",
+    "onoff": "^6.0.3"
+  }
+}
